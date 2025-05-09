@@ -24,7 +24,7 @@ spec:
         app: app-service
     spec:
       containers:
-      - image: docker.io/sbtalk71/app-service:13
+      - image: docker.io/sbtalk71/azure-app:16
         imagePullPolicy: IfNotPresent
         name: emp-service
         
