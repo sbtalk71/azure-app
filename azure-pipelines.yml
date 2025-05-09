@@ -32,4 +32,10 @@ steps:
     repository: 'sbtalk71/azure-app'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
-  
+- task: KubernetesManifest@1
+  inputs:
+    action: 'deploy'
+    connectionType: 'kubernetesServiceConnection'
+    kubernetesServiceConnection: 'my-aks-conn'
+    namespace: 'default'
+    manifests: '$(Build.SourcesDirectory)/deployment.yaml'
