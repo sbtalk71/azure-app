@@ -27,7 +27,7 @@ spec:
       - image: docker.io/sbtalk71/app-service:13
         imagePullPolicy: IfNotPresent
         name: emp-service
-        restartPolicy: Always
+        
       
 ---
 apiVersion: v1
