@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-service
+  name: app-service
+  namespace: default
+  
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: app-service
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+       labels:
+        app: app-service
+    spec:
+      containers:
+      - image: docker.io/sbtalk71/app-service:13
+        imagePullPolicy: IfNotPresent
+        name: emp-service
+        restartPolicy: Always
+      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-service
+  name: app-service
+  namespace: default
+  
+spec:
+  
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: emp-service
+  sessionAffinity: None
+  type: LoadBalancer
